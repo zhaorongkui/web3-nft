@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
-const usedChainId = "0x7a69"; // localhost
+const usedChainId = "0x7a69"; // localhost ----> 31337
 
 function Navbar() {
   const [connected, toggleConnect] = useState(false);
@@ -33,12 +33,12 @@ function Navbar() {
     if (chainId !== usedChainId) {
       //alert('Incorrect network! Switch your metamask network to Rinkeby');
       await window.ethereum.request({
-        method: "wallet_switchEthereumChain",
+        method: "wallet_switchEthereumChain", // 小狐狸钱包的标准，提供的api
         params: [{ chainId: usedChainId }],
       });
     }
     await window.ethereum
-      .request({ method: "eth_requestAccounts" })
+      .request({ method: "eth_requestAccounts" }) // 发送请求，会返回账户的数量.then(accounts) =>{通过判断accounts > 0 来判断账户数量}
       .then(() => {
         updateButton();
         getAddress();
