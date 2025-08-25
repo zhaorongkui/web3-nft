@@ -20,6 +20,10 @@ module.exports = {
     hardhat: {
       chainId: 31337,
     },
+    sepolia: {
+      url: 'https://eth-sepolia.g.alchemy.com/v2/thPFsRA_-Uh8jLh5R7wP0', // acme 以太坊测试网上
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [], // 测试链上的账户的私钥：
+    },
     // sepolia: {
     //   url: "https://eth-sepolia.g.alchemy.com/v2/I3eHFhWUQaZueOZP5BPt3jdFLebK9aEe",
     //   accounts: [process.env.PRIVATE_KEY],
