@@ -28,29 +28,29 @@ export default function Marketplace() {
       MarketplaceJSON.abi,
       signer
     );
-    console.log(77777, contract);
-    console.log(7777766666, contract.getAllNFTs());
     //create an NFT Token
-    const transaction = await contract.getAllNFTs();
+    const transaction = await contract.getAllNFTs(); // 调用合约的getAllNFTs方法，从区块链上获取所有 NFT 的原始数据（通常包含 tokenId、价格、卖家、所有者等信息）。
     console.log(88888, transaction);
     //Fetch all the details of every NFT from the contract and display
-    const items = await Promise.all(
+    const items = await Promise.all( // 并行处理所有 NFT 的数据，提高效率。
       transaction.map(async (i) => {
-        var tokenURI = await contract.tokenURI(i.tokenId);
+        var tokenURI = await contract.tokenURI(i.tokenId); // 1. 获取NFT的元数据URI（通常是IPFS链接）
         console.log("getting this tokenUri", tokenURI);
-        tokenURI = GetIpfsUrlFromPinata(tokenURI);
-        let meta = await axios.get(tokenURI);
+        tokenURI = GetIpfsUrlFromPinata(tokenURI); // 2. 处理IPFS链接（转换为可直接访问的URL）
+        let meta = await axios.get(tokenURI);  // 3. 从URI加载元数据（JSON格式）
         meta = meta.data;
 
-        let price = ethers.utils.formatUnits(i.price.toString(), "ether");
+        let price = ethers.utils.formatUnits(i.price.toString(), "ether");  // 4. 格式化价格（从wei转换为ether，以太坊的单位转换）
+
+         // 5. 构造NFT信息对象
         let item = {
           price,
-          tokenId: i.tokenId.toNumber(),
-          seller: i.seller,
-          owner: i.owner,
-          image: meta.image,
-          name: meta.name,
-          description: meta.description,
+          tokenId: i.tokenId.toNumber(),  // NFT的唯一标识
+          seller: i.seller,  // 卖家地址
+          owner: i.owner,    // 所有者地址
+          image: meta.image, // 图片链接（来自元数据）
+          name: meta.name,   // 名称（来自元数据）
+          description: meta.description, // 描述（来自元数据）
         };
         return item;
       })

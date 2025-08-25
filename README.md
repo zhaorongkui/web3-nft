@@ -58,3 +58,12 @@ pinata_v3创建jwt方式如下
 4. 启动前端
 
    `npm start`
+
+
+   链接钱包后，页面会报错，返回的data:0x
+
+   合约地址有问题，是没有进行本地部署：
+
+   执行：以下部署命令，进行部署。
+
+   npx hardhat run ./scripts/deploy.js --network localhost
