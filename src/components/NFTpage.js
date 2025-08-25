@@ -83,10 +83,10 @@ export default function NFTPage(props) {
     // 获取路由参数中的tokenId（从URL中提取，如/nft/123中的123）
     const params = useParams();
     const tokenId = params.tokenId;
-    if (!dataFetched)
+    if (!dataFetched) // 数据未加载时，调用getNFTData获取当前NFT详情
         getNFTData(tokenId);
     if (typeof data.image == "string")
-        data.image = GetIpfsUrlFromPinata(data.image);
+        data.image = GetIpfsUrlFromPinata(data.image); // 处理图片链接：如果图片是IPFS格式，转换为可访问的URL
 
     return (
         <div style={{ "min-height": "100vh" }}>
